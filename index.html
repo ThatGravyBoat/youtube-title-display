@@ -66,7 +66,7 @@
             var videoOrPlaylistID = document.getElementById("videoid").value;
                 var isPlaylist = document.getElementById("isPlaylist").checked;
                 if (videoOrPlaylistID.length > 0) {
-                    var gendURL = `${location.href}${dev ? "player.html" : "/player"}?${isPlaylist ? `playlistid=` : `videoid=`}${videoOrPlaylistID}`;
+                    var gendURL = `${location.href}${dev ? "player.html" : "player"}?${isPlaylist ? `playlistid=` : `videoid=`}${videoOrPlaylistID}`;
 
                     $('.approved').html(`<a href="${gendURL}">${gendURL}</a>`);
                     $('.approved').removeClass( "error-color" )
