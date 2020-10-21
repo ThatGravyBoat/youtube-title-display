@@ -1,0 +1,80 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="./config.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div class="settingsBox">
+            <div class="fullSetting">
+                <div class="settingTab">
+                    <div class="settingTitle"><span><b>YouTube Video attribution display.</b></span></div>
+                </div>
+                <div class="settingDesc">
+                    <p>
+                        This site will embed an invisible YouTube video and display the YouTube videos title so you can add it as a browser source on stream to give credit for a song you're listening to.
+                    </p>
+                </div>
+            </div>
+            <div class="fullSetting">
+                <div class="settingTab">
+                    <div class="settingTitle"><span><b>Video ID/Playlist ID</b></span></div>
+                    <div class="setting"><input type="text" id="videoid" class="videoid" name="videoid"></div>
+                </div>
+                <div class="settingDesc">
+                    <p>
+                        The video is the string of random numbers and characters at the end of a video url. <br> Use option below to change to a playlist id instead.
+                    </p>
+                </div>
+            </div> 
+
+            <div class="fullSetting">
+                <div class="settingTab">
+                    <div class="settingTitle"><b>Playlist</b></span></div>
+                    <div class="setting toggleSwitch">
+                        <input type="checkbox" id="isPlaylist">
+                        <label for="isPlaylist">Toggle</label>
+                    </div>
+                </div>
+                <div class="settingDesc">
+                    <p>
+                        Sets if the ID above should be used for a playlist ID instead of video ID.
+                    </p>
+                </div>
+            </div>
+
+
+
+            <div class="saveTab">
+                <div class="settingTab">
+                    <div class="settingTitle"><span><b>Generate Display URL</b></span></div>
+                    <div class="setting">
+                        <button onclick="genLink()" type="button" class="saveButton" id="saveButton"><span><b>Generate</b></span></button>
+                    </div>
+                </div>
+                <div class="settingDesc">
+                    <p class="approved">
+                        Click the Generate button to Generate a URL for your OBS browser source.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        var dev = location.host == "127.0.0.1:5500";
+        function genLink() {
+            var videoOrPlaylistID = document.getElementById("videoid").value;
+                var isPlaylist = document.getElementById("isPlaylist").checked;
+                if (videoOrPlaylistID.length > 0) {
+                    var gendURL = `${location.protocol}//${location.host}${dev ? "/player.html" : "/player"}?${isPlaylist ? `playlistid=` : `videoid=`}${videoOrPlaylistID}`;
+
+                    $('.approved').html(`<a href="${gendURL}">${gendURL}</a>`);
+                    $('.approved').removeClass( "error-color" )
+                }
+                else {
+                    $('.approved').html('Please provide a video or playlist ID.');
+                    $('.approved').addClass( "error-color" )
+                }
+        }
+    </script>
+</html>
